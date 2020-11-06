@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -40,5 +41,19 @@ class User extends Authenticatable
     public function pages()
     {
         return $this->hasMany('App\Page');
+    }
+
+    public function roles()
+    {
+        return $this->BelongsToMany('App\Role');
+    }
+
+    public function hasAnyRole($roles)
+    {
+        return null != $this->roles()->whereIn('name', $roles)->frist();
+    }
+    public function hasRole($roles)
+    {
+        return null != $this->roles()->where('name', $roles)->frist();
     }
 }
