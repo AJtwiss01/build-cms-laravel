@@ -50,10 +50,11 @@ class User extends Authenticatable
 
     public function hasAnyRole($roles)
     {
-        return null != $this->roles()->whereIn('name', $roles)->frist();
+
+        return null != $this->roles()->whereIn('name', $roles);
     }
     public function hasRole($roles)
     {
-        return null != $this->roles()->where('name', $roles)->frist();
+        return null != $this->roles()->where('name', $roles);
     }
 }

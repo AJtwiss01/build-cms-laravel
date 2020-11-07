@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use App\User;
 
+use Auth;
 
 class AccessAdmin
 {
@@ -17,7 +18,7 @@ class AccessAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->hasAnyRole(['admin', 'editor', 'author'])) {
 
             return $next($request);
         }
